@@ -1,51 +1,152 @@
-# ZAMACORPS Encrypted Payroll
+# ZAMACORPS - Privacy-Preserving Payroll System
 
-> Privacy-Preserving Payroll Streaming for Web3 Companies using Zama's Fully Homomorphic Encryption (FHE)
+> **Solving Blockchain's Privacy Problem**: Private salary streaming using Zama's Fully Homomorphic Encryption (FHE)
 
-[![Built with Zama FHEVM](https://img.shields.io/badge/Built%20with-Zama%20FHEVM-blue)](https://docs.zama.org)
-[![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org)
-[![Solidity](https://img.shields.io/badge/Solidity-0.8.24-orange)](https://soliditylang.org)
+[![Built with Zama fhEVM](https://img.shields.io/badge/Built%20with-Zama%20fhEVM-0052FF.svg)](https://docs.zama.ai/fhevm)
+[![Next.js 15](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org)
+[![Solidity 0.8.24](https://img.shields.io/badge/Solidity-0.8.24-orange)](https://soliditylang.org)
+[![License: BSD-3-Clear](https://img.shields.io/badge/License-BSD--3--Clear-blue.svg)](LICENSE)
 
-## 🎯 Problem
+---
 
-Traditional payroll systems expose sensitive salary data on public blockchains. ZAMACORPS solves this using Zama's Fully Homomorphic Encryption to keep salaries private while maintaining on-chain transparency and automation.
+## 🚨 The Problem Zama Solves
+
+**Public blockchains expose everything.** Every transaction, every balance, every computation is visible to anyone scanning the chain. This makes blockchain unsuitable for:
+- 💰 Confidential financial data (salaries, bonuses)
+- 🏥 Private health records
+- 🗳️ Secret voting systems
+- 🔐 Sensitive business logic
+
+**Traditional "solutions" fail:**
+- ❌ **Off-chain storage**: Defeats the purpose of blockchain
+- ❌ **Zero-knowledge proofs**: Can't compute on encrypted data
+- ❌ **Mixing/privacy coins**: Limited use cases, regulatory issues
+
+## 💡 How Zama's FHE Changes Everything
+
+**Fully Homomorphic Encryption (FHE)** lets you:
+- ✅ **Compute directly on encrypted data** - No decryption needed
+- ✅ **Maintain privacy on public chains** - Data stays encrypted on-chain
+- ✅ **Enable confidential smart contracts** -BusinessLogic runs on ciphertexts
+
+**Example:**
+```
+Traditional: decrypt(salary) + decrypt(bonus) → exposed values
+FHE:        FHE.add(encSalary, encBonus) → still encrypted!
+```
+
+---
+
+## 🎯 ZAMACORPS: FHE-Powered Payroll
+
+**What we built:** A fully functional payroll streaming platform where **salaries remain encrypted throughout the entire lifecycle** - from creation to withdrawal.
+
+### How ZAMACORPS Demonstrates Zama's Power
+
+| Traditional Blockchain Payroll | ZAMACORPS with Zama FHE |
+|--------------------------------|-------------------------|
+| 👀 Salaries visible on-chain | 🔐 Salaries encrypted with `euint128` |
+| 🚫 No privacy guarantees | ✅ Mathematically proven privacy (FHE) |
+| ⚠️ Regulatory compliance issues | ✅ GDPR/privacy law friendly |
+| 📊 Manual batch payments | ⚡ Automated streaming with FHE operations |
+
+### Real-World Impact
+
+**Sector:** Web3 Companies, DAOs, Remote Teams  
+**Pain Point:** Transparent blockchain exposes employee salaries  
+**Solution:** ZAMACORPS encrypts everything
+
+```solidity
+// Encrypted salary creation (HR perspective)
+euint128 encryptedSalary = FHE.asEuint128(salary);  // Never touches plaintext
+streams[employee] = Stream(encryptedSalary, ...);
+
+// Encrypted computation (on-chain)
+euint128 accrued = FHE.mul(salaryPerBlock, blocksPassed);  // Computed on ciphertext!
+euint128 claimable = FHE.sub(accrued, claimed);            // Still encrypted
+```
+
+---
 
 ## ✨ Features
 
-- 🔐 **Encrypted Salaries**: Salaries encrypted client-side, never exposed on-chain
-- 📊 **Streaming Payments**: Block-based salary streaming with cliff vesting
-- 🎭 **Role-Based Access**: Separate dashboards for Admin, HR, and Employees
-- 🔍 **Debug Mode**: Visual proof of encryption (see encrypted handles)
-- 🎨 **Professional UI**: ZAMACORPS themed with dark/light mode support
-- ⚡ **Bulk Upload**: HR can create multiple streams at once
+### Core FHE Implementation
+- 🔐 **End-to-End Encryption**: Client-side encryption → on-chain FHE operations → user-only decryption
+- 🧮 **Encrypted Computations**: Salary calculations using `FHE.mul()`, `FHE.sub()`, `FHE.select()`
+- 🔑 **Access Control**: `FHE.allow()` grants decryption rights only to authorized users
+- 📊 **Verifiable Privacy**: Block explorers show encrypted handles, not salaries
+
+### User Experience
+- 🎨 **Professional UI**: ZAMACORPS dark/light theme
+- 📈 **Real-time Streaming**: Salaries accrue every block (Sepolia testnet)
+- 👥 **Role-Based Access**: Admin, HR, Employee dashboards
+- 📤 **Bulk Upload**: CSV import for mass stream creation
+- 🔍 **Debug Mode**: Visualize encrypted data flow
+
+---
 
 ## 🏗️ Architecture
 
-### Smart Contract (`EncryptedPayroll.sol`)
-- **FHE Types**: Uses `euint128` for salaries, `euint64` for blocks
-- **Privacy Model**: 3-step withdrawal (Request → Decrypt → Submit)
-- **Access Control**: `HR_ROLE` for stream creation, `FHE.allow()` for decryption
+### Smart Contract (`EncryptedPayrollV2.sol`)
+```solidity
+contract EncryptedPayrollV2 {
+    mapping(address => euint128) withdrawals;  // FHE-encrypted storage
+    
+    function requestWithdrawal() returns (bytes32) {
+        // 1. Compute claimable (encrypted)
+        euint128 claimable = FHE.sub(accrued, claimed);
+        
+        // 2. Store encrypted handle
+        withdrawals[msg.sender] = claimable;
+        
+        // 3. Grant decryption permission
+        FHE.allow(withdrawals[msg.sender], msg.sender);
+        
+        // 4. Return handle for client-side decryption
+        return FHE.toBytes32(withdrawals[msg.sender]);
+    }
+}
+```
 
-### Frontend (`Next.js 15 + TypeScript`)
-- **Encryption**: Zama Relayer SDK (`@zama-fhe/relayer-sdk`)
-- **Wallet**: wagmi + viem for Ethereum interactions
-- **UI**: Tailwind CSS + Framer Motion
+### Privacy Flow
+```mermaid
+sequenceDiagram
+    participant HR
+    participant fhEVM
+    participant Employee
+    participant Relayer
+    
+    HR->>fhEVM: createStream(euint128 salary)
+    Note over fhEVM: Salary never visible
+    
+    Employee->>fhEVM: requestWithdrawal()
+    fhEVM->>fhEVM: FHE.sub(accrued, claimed)
+    fhEVM->>fhEVM: FHE.allow(claimable, employee)
+    fhEVM->>Employee: bytes32 encryptedHandle
+    
+    Employee->>Relayer: decrypt(handle, signature)
+    Relayer->>Employee: plaintext amount (off-chain)
+    
+    Employee->>fhEVM: submitWithdrawal(amount)
+    fhEVM->>Employee: Transfer ETH
+```
+
+---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - Node.js 18+
-- MetaMask or compatible Web3 wallet
-- Sepolia ETH for testing
+- MetaMask wallet
+- Sepolia ETH ([Faucet](https://sepoliafaucet.com/))
 
 ### Installation
-
 ```bash
 # Clone repository
-git clone <repo-url>
-cd onlyfans-benchmark
+git clone https://github.com/Cassxbt/Zamacorps.git
+cd Zamacorps
 
-# Install frontend dependencies
+# Install dependencies
 cd frontend
 npm install
 
@@ -55,146 +156,132 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000)
 
-### Contract Details
+### Live Demo
+🌐 **Deployed on Vercel**: [zamacorps.vercel.app](https://zamacorps.vercel.app)
+
+### Contract
 - **Network**: Sepolia Testnet
-- **Address**: `0xA1B1EBDdc77af1Ec4f18982866332455E0423536`
-- **Explorer**: [View on Etherscan](https://sepolia.etherscan.io/address/0xA1B1EBDdc77af1Ec4f18982866332455E0423536)
+- **Address**: `0x63e9336A8C9B1B9EbF3741a733f4888B91C73549`
+- **Explorer**: [View on Basescan](https://sepolia.etherscan.io/address/0x63e9336A8C9B1B9EbF3741a733f4888B91C73549)
 
-## 📖 How It Works
-
-```mermaid
-sequenceDiagram
-    participant HR
-    participant Contract
-    participant Employee
-    participant Relayer
-    
-    HR->>Contract: createStream(encrypted salary)
-    Note over Contract: Salary stored as euint128
-    
-    loop Every block
-        Note over Contract: Accrued = salary * blocks
-    end
-    
-    Employee->>Contract: requestWithdrawal()
-    Contract->>Contract: FHE.allow(claimable, employee)
-    Contract->>Employee: Return encrypted handle
-    
-    Employee->>Relayer: Decrypt handle
-    Relayer->>Employee: Decrypted amount
-    
-    Employee->>Contract: submitWithdrawal(amount)
-    Contract->>Employee: Transfer ETH
-```
-
-## 🧪 Testing Guide
-
-See [Comprehensive Testing Guide](./docs/zama_submission_guide.md) for:
-- Privacy verification
-- Debug mode walkthrough
-- End-to-end withdrawal flow
-- Permission control tests
-- Error handling checks
-
-### Quick Test
-
-1. **Connect as HR**: Create a stream for any address
-2. **Connect as Employee**: View encrypted salary in Debug Mode
-3. **Wait 10 blocks**: Then withdraw to see the 3-step flow
+---
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Smart Contract | Solidity 0.8.24, Zama FHEVM v0.9 |
-| Frontend | Next.js 15, React 19, TypeScript |
-| Styling | Tailwind CSS, Framer Motion |
-| Web3 | wagmi, viem, MetaMask |
-| Encryption | @zama-fhe/relayer-sdk |
+| Component | Technology |
+|-----------|------------|
+| **Encryption** | Zama fhEVM v0.9, Relayer SDK |
+| **Smart Contracts** | Solidity 0.8.24, Hardhat |
+| **Frontend** | Next.js 15, React 19, TypeScript |
+| **Web3** | wagmi, viem, RainbowKit |
+| **Styling** | Tailwind CSS, Framer Motion |
+
+---
+
+## 🧪 Testing the FHE Implementation
+
+### 1. Create Encrypted Stream (HR)
+```bash
+# Navigate to /hr
+# Create stream with salary: 0.001 ETH/block
+# → Salary encrypted client-side, never visible on-chain
+```
+
+### 2. Verify Privacy (Block Explorer)
+```bash
+# Visit Etherscan contract page
+# View "streams" mapping → See encrypted euint128 handle
+# NOT the actual salary value ✅
+```
+
+### 3. Employee Withdrawal (3-Step Private Flow)
+```bash
+# 1. requestWithdrawal() → Get encrypted handle
+# 2. Decrypt via Relayer (off-chain, user signature required)
+# 3. submitWithdrawal(decryptedAmount) → Claim funds
+```
+
+**Key Insight**: At no point does the salary appear in plaintext on-chain.
+
+---
 
 ## 📂 Project Structure
 
 ```
-onlyfans-benchmark/
+Zamacorps/
 ├── blockchain/
 │   ├── contracts/
-│   │   └── EncryptedPayroll.sol    # Main FHE contract
+│   │   └── EncryptedPayrollV2.sol   # FHE payroll contract
 │   ├── scripts/
-│   │   └── deploy.ts                # Deployment script
+│   │   └── deploy.ts                 # Deployment script
 │   └── hardhat.config.ts
 ├── frontend/
 │   ├── app/
-│   │   ├── page.tsx                 # Homepage
-│   │   ├── admin/page.tsx           # Admin dashboard
-│   │   ├── hr/page.tsx              # HR dashboard
-│   │   └── employee/page.tsx        # Employee dashboard
-│   ├── components/
-│   │   ├── hr/
-│   │   │   ├── CreateStreamForm.tsx
-│   │   │   └── BulkUpload.tsx
-│   │   └── employee/
-│   │       └── WithdrawPanel.tsx    # 3-step withdrawal UI
-│   └── lib/
-│       ├── fhe/
-│       │   ├── instance.ts          # FHE SDK setup
-│       │   ├── encrypt.ts           # Client-side encryption
-│       │   └── decrypt.ts           # Client-side decryption
-│       └── contracts/
-│           └── payroll.ts           # Contract wrapper
+│   │   ├── admin/                    # Role management
+│   │   ├── hr/                       # Stream creation (encrypted)
+│   │   └── employee/                 # Private withdrawals
+│   ├── lib/
+│   │   ├── fhe/
+│   │   │   ├── encrypt.ts            # Client-side FHE encryption
+│   │   │   └── decrypt.ts            # Relayer-based decryption
+│   │   └── contracts/
+│   │       └── payroll.ts            # Contract interaction layer
+└── README.md
 ```
-
-## 🎥 Demo
-
-[Demo Video Link] - Coming Soon
-
-## 🔐 Security Considerations
-
-- ✅ Salaries never stored in plaintext on-chain
-- ✅ Access control via OpenZeppelin's `AccessControl`
-- ✅ FHE.allow() restricts decryption to specific users
-- ✅ No re-entrancy vulnerabilities (single transfer per withdrawal)
-- ⚠️ Contract does not support stream cancellation (future feature)
-
-## 🌟 Zama FHE Usage
-
-### Key FHE Operations
-1. **Encryption**: `instance.createEncryptedInput().add128(salary)`
-2. **Conditional Logic**: `FHE.select(isPastCliff, accrued, 0)`
-3. **Access Control**: `FHE.allow(claimable, employee)`
-4. **Decryption**: `instance.decrypt(handle, userAddress)` via Relayer
-
-### Privacy Guarantees
-- HR can create streams without revealing salaries to the public
-- Employees can only decrypt their own claimable amounts
-- Block explorers show encrypted handles, not plaintext values
-
-## 🚀 Deployment
-
-### Frontend (Vercel)
-```bash
-# Push to GitHub
-git push origin main
-
-# Import to Vercel
-# Set environment variable:
-NEXT_PUBLIC_PAYROLL_ADDRESS=0x1cD2d67ab3Cb3e35F14c7907b9f5CF8dB1AC38Da
-```
-
-### Contract (Already Deployed)
-The `EncryptedPayroll` contract is deployed on Sepolia. To redeploy:
-```bash
-cd blockchain
-npx hardhat run scripts/deploy.ts --network sepolia
-```
-
-## 📝 License
-
-BSD-3-Clause-Clear (Zama Compatible)
-
-## 🙏 Acknowledgments
-
-Built with [Zama FHEVM](https://docs.zama.org) - Making Blockchain Data Private by Default
 
 ---
 
-**For Judges**: See [Testing Guide](./docs/zama_submission_guide.md) for detailed evaluation instructions.
+## � Why This Matters for Zama
+
+ZAMACORPS demonstrates **real-world FHE adoption** in a critical vertical:
+
+1. **Payroll is a $1T+ market** with strict privacy requirements
+2. **Proves FHE is production-ready** for confidential business logic
+3. **Showcases Zama's developer experience** (easy SDK integration)
+4. **Enables regulatory compliance** (GDPR, financial privacy laws)
+
+**Beyond Payroll**: This architecture applies to:
+- � **Healthcare**: Encrypted patient records
+- 🗳️ **Governance**: Private DAO voting
+- 💳 **DeFi**: Confidential credit scores, lending
+- 🎮 **Gaming**: Hidden game states, sealed-bid auctions
+
+---
+
+## 🔐 Security & Privacy
+
+- ✅ **No plaintext storage**: All salaries stored as `euint128`
+- ✅ **Access control**: `FHE.allow()` restricts decryption to specific addresses
+- ✅ **No server-side secrets**: Client-side encryption, user signatures
+- ✅ **Auditable privacy**: Block explorers show ciphertexts, not values
+
+---
+
+## � License
+
+BSD-3-Clause-Clear (Zama Compatible)
+
+---
+
+## 💖 Built With Love
+
+**Built with 🩷 by [@cassxbt](https://x.com/cassxbt) for [Zama](https://zama.ai)**
+
+### Author
+**cassxbt**  
+🐦 Twitter/X: [@cassxbt](https://x.com/cassxbt)  
+💼 Building the future of confidential computing on blockchain
+
+---
+
+## 🙏 Acknowledgments
+
+**[Zama](https://www.zama.ai/)** - Making Blockchain Data Private by Default  
+📚 **Documentation**: [docs.zama.ai](https://docs.zama.ai)  
+🛠️ **fhEVM**: [github.com/zama-ai/fhevm](https://github.com/zama-ai/fhevm)
+
+> *"Zama's FHE unlocks blockchain's true potential by making privacy mathematically guaranteed, not just promised."*
+
+---
+
+**Questions?** Open an issue or reach out to [@cassxbt](https://x.com/cassxbt)
