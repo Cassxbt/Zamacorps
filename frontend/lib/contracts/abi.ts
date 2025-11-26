@@ -2,19 +2,18 @@
  * Encrypted Payroll Contract ABI and Constants
  */
 
-import payrollAbi from '../../../blockchain/artifacts/contracts/EncryptedPayrollV2.sol/EncryptedPayrollV2.json';
-import oracleAbi from '../../../blockchain/artifacts/contracts/IncomeOracle.sol/IncomeOracle.json';
-
+import payrollAbi from './EncryptedPayroll.json';
+// TODO: Add IncomeOracle.json when available
 
 /**
  * Export the ABIs
  */
 export const EncryptedPayrollABI = payrollAbi.abi;
-export const IncomeOracleABI = oracleAbi.abi;
+// export const IncomeOracleABI = oracleAbi.abi;
 
 export const ABIs = {
     payroll: EncryptedPayrollABI,
-    incomeOracle: IncomeOracleABI
+    // incomeOracle: IncomeOracleABI
 };
 
 /**
