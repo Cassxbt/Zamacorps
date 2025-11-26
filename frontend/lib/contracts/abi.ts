@@ -3,17 +3,17 @@
  */
 
 import payrollAbi from './EncryptedPayroll.json';
-// TODO: Add IncomeOracle.json when available
+import oracleAbi from './IncomeOracle.json';
 
 /**
  * Export the ABIs
  */
 export const EncryptedPayrollABI = payrollAbi.abi;
-// export const IncomeOracleABI = oracleAbi.abi;
+export const IncomeOracleABI = oracleAbi.abi;
 
 export const ABIs = {
     payroll: EncryptedPayrollABI,
-    // incomeOracle: IncomeOracleABI
+    incomeOracle: IncomeOracleABI
 };
 
 /**
