@@ -46,19 +46,16 @@ export async function getFhevmInstance(): Promise<FhevmInstance> {
             console.log('[FHE-INIT] ✅ WASM initialized successfully');
 
             // Step 3: Create instance with config
-            console.log('[FHE-INIT] Step 3/3: Creating FHEVM instance...');
+            console.log('[FHE-INIT] Step 3/3: Creating FHEVMinstance...');
 
-            // Official Zama Sepolia coprocessor addresses from ZamaConfig.sol
-            // Source: blockchain/fhevmTemp/@fhevm/solidity/config/ZamaConfig.sol line 61-67
+            // Use official Sepolia config from SDK
+            // This includes ALL required addresses in the correct format
+            const { SepoliaConfig } = await import('@zama-fhe/relayer-sdk/web');
+
             const config = {
-                chainId: 11155111,
-                gatewayChainId: 11155111,
+                ...SepoliaConfig, // Official Zama Sepolia addresses
                 network: 'https://eth-sepolia.g.alchemy.com/v2/sTZ5ecoblEhM7IGB9bc_z_izbUph1Chn',
                 relayerUrl: 'https://relayer.testnet.zama.org/',
-                // CRITICAL: These MUST match the official Zama deployment
-                aclContractAddress: '0xf0Ffdc93b7E186bC2f8CB3dAA75D86d1930A433D', // ✅ Official ACL
-                coprocessorContractAddress: '0x92C920834Ec8941d2C77D188936E1f7A6f49c127', // ✅ Official Coprocessor
-                kmsVerifierContractAddress: '0xbE0E383937d564D7FF0BC3b46c51f0bF8d5C311A', // ✅ Official KMSVerifier
             };
 
             console.log('[FHE-INIT] Config:', JSON.stringify(config, null, 2));
