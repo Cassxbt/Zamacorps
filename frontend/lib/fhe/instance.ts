@@ -32,7 +32,7 @@ export async function getFhevmInstance(): Promise<FhevmInstance> {
         // Use manual config with working relayer URL from config
         const config = {
             chainId: 11155111,  // Sepolia
-            gatewayChainId: 10901,  // Gateway chain ID
+            gatewayChainId: 11155111,  // Sepolia testnet (must match chainId for EIP-712 signature verification)
             network: window.ethereum || 'https://eth-sepolia.g.alchemy.com/v2/sTZ5ecoblEhM7IGB9bc_z_izbUph1Chn',
             // Relayer URL from config
             relayerUrl: FHE_RELAYER,
