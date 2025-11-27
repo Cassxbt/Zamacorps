@@ -152,7 +152,7 @@ export default function EmployeePage() {
                 }
             }, 3000);
         } catch (error: any) {
-            console.error('[Employee] Withdrawal error:', error);
+            // console.error('[Employee] Withdrawal error:', error);
             setStatus({
                 type: 'error',
                 message: error.message || 'Failed to withdraw. Please try again.'

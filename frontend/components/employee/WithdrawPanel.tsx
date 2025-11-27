@@ -71,28 +71,28 @@ export function WithdrawPanel() {
 
         try {
             // Step 1: Request withdrawal - get encrypted handle
-            console.log('[Withdraw] Step 1: Requesting withdrawal...');
+            // console.log('[Withdraw] Step 1: Requesting withdrawal...');
             setStatus('requesting');
 
             const { txHash: requestTxHash, handle: encryptedHandle } = await requestWithdrawal(walletClient, publicClient);
-            console.log('[Withdraw] Got encrypted handle from tx:', requestTxHash);
+            // console.log('[Withdraw] Got encrypted handle from tx:', requestTxHash);
 
             // Step 2: Decrypt using Zama Relayer SDK
-            console.log('[Withdraw] Step 2: Decrypting with Relayer...');
+            // console.log('[Withdraw] Step 2: Decrypting with Relayer...');
             setStatus('decrypting');
 
             const amount = await decryptValue(encryptedHandle, PAYROLL_ADDRESS, address);
-            console.log('[Withdraw] Decrypted amount:', amount);
+            // console.log('[Withdraw] Decrypted amount:', amount);
             setDecryptedAmount(amount);
 
             // Step 3: Submit the decrypted amount
-            console.log('[Withdraw] Step 3: Submitting withdrawal...');
+            // console.log('[Withdraw] Step 3: Submitting withdrawal...');
             setStatus('submitting');
 
             const hash = await submitWithdrawal(walletClient, amount);
             setTxHash(hash);
 
-            console.log('[Withdraw] Withdrawal complete! Tx:', hash);
+            // console.log('[Withdraw] Withdrawal complete! Tx:', hash);
             setStatus('success');
 
             // Reload stream data
