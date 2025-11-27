@@ -4,24 +4,24 @@ services:
   # MongoDB database
   mongodb:
     image: mongo:6.0
-    container_name: onlyfans-mongodb
+    container_name: zamacorps-mongodb
     restart: unless-stopped
     ports:
       - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password123
-      MONGO_INITDB_DATABASE: onlyfans-benchmark
+      MONGO_INITDB_DATABASE: zamacorps-benchmark
     volumes:
       - mongodb_data:/data/db
       - ./backend/src/config/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
-      - onlyfans-network
+      - zamacorps-network
 
   # Redis cache
   redis:
     image: redis:7-alpine
-    container_name: onlyfans-redis
+    container_name: zamacorps-redis
     restart: unless-stopped
     ports:
       - "6379:6379"
@@ -29,21 +29,21 @@ services:
     volumes:
       - redis_data:/data
     networks:
-      - onlyfans-network
+      - zamacorps-network
 
   # Backend API
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: onlyfans-backend
+    container_name: zamacorps-backend
     restart: unless-stopped
     ports:
       - "5000:5000"
     environment:
       NODE_ENV: production
       PORT: 5000
-      MONGODB_URI: mongodb://admin:password123@mongodb:27017/onlyfans-benchmark?authSource=admin
+      MONGODB_URI: mongodb://admin:password123@mongodb:27017/zamacorps-benchmark?authSource=admin
       REDIS_URL: redis://:redis123@redis:6379
       JWT_SECRET: your-super-secret-jwt-key-change-this-in-production
       FRONTEND_URL: http://localhost:3000
@@ -53,14 +53,14 @@ services:
     volumes:
       - ./backend/logs:/app/logs
     networks:
-      - onlyfans-network
+      - zamacorps-network
 
   # Frontend React app
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: onlyfans-frontend
+    container_name: zamacorps-frontend
     restart: unless-stopped
     ports:
       - "3000:80"
@@ -69,12 +69,12 @@ services:
     depends_on:
       - backend
     networks:
-      - onlyfans-network
+      - zamacorps-network
 
   # Nginx reverse proxy (optional)
   nginx:
     image: nginx:alpine
-    container_name: onlyfans-nginx
+    container_name: zamacorps-nginx
     restart: unless-stopped
     ports:
       - "80:80"
@@ -86,12 +86,13 @@ services:
       - frontend
       - backend
     networks:
-      - onlyfans-network
+      - zamacorps-network
 
 volumes:
   mongodb_data:
   redis_data:
 
+
 networks:
-  onlyfans-network:
+  zamacorps-network:
     driver: bridge

@@ -1,7 +1,8 @@
+```json
 {
-  "name": "private-onlyfans-benchmark",
+  "name": "zamacorps",
   "version": "1.0.0",
-  "description": "Privacy-preserving OnlyFans earnings benchmark using Zama FHE",
+  "description": "Privacy-preserving Payroll System using Zama FHE",
   "main": "index.js",
   "scripts": {
     "dev": "npm run dev:frontend",
@@ -17,8 +18,7 @@
   "keywords": [
     "fhe",
     "privacy",
-    "onlyfans",
-    "benchmark",
+    "payroll",
     "zama",
     "encryption"
   ],
