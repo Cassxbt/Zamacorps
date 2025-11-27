@@ -1,8 +1,8 @@
 import { ethers } from "hardhat";
 
 async function main() {
-    const PAYROLL_ADDRESS = "0x208ed052C35582aeD97C615978D11823483e9a3D";
-    const ORACLE_ADDRESS = "0x40138826A51e48f9FAFfCfA32B0Fd01049F033D3";
+    const PAYROLL_ADDRESS = "0x63e9336A8C9B1B9EbF3741a733f4888B91C73549";
+    const ORACLE_ADDRESS = "0x094F7C9c590E00165976a10E268CAa5ce7e66A07";
 
     const [signer] = await ethers.getSigners();
 
