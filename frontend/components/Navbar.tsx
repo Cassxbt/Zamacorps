@@ -13,7 +13,7 @@ const ZamacorpsLogo = dynamic(() => import('./ZamacorpsLogo').then(mod => ({ def
 });
 
 const ThemeToggle = dynamic(() => import('./ThemeToggle').then(mod => ({ default: mod.ThemeToggle })), {
-    loading: () => <div className="w-10 h-10" />,
+    loading: () => <div className="w-10 h-10 rounded-lg bg-white/20 animate-pulse" />,
     ssr: false
 });
 
