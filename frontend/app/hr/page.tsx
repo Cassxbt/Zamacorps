@@ -275,7 +275,7 @@ export default function HRPage() {
                         </h1>
                         <p className={`text-xl font-medium ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'
                             }`}>Manage encrypted salary streams with full privacy</p>
-                        <p className="text-[#ffd209] text-sm mt-2 font-medium">Powered by ZAMACORPS FHE Technology</p>
+                        <p className="text-[#ffd209] text-sm mt-2 font-medium">Powered by ZACORPS FHE Technology</p>
                     </motion.div>
 
                     <AnimatePresence mode="wait">

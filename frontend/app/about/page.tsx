@@ -93,7 +93,7 @@ export default function AboutPage() {
                         </p>
                         <p className={`text-lg leading-relaxed font-medium ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
                             }`}>
-                            ZAMACORPS exists to bridge the gap between blockchain transparency and individual privacy.
+                            ZACORPS exists to bridge the gap between blockchain transparency and individual privacy.
                             We believe you shouldn't have to choose between on-chain efficiency and keeping your salary private.
                         </p>
                     </motion.div>
@@ -102,8 +102,8 @@ export default function AboutPage() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         className={`relative h-[400px] rounded-3xl border flex items-center justify-center overflow-hidden ${theme === 'dark'
-                                ? 'bg-[#1a1a1a]/80 border-[#ffd209]/30'
-                                : 'bg-white border-slate-200'
+                            ? 'bg-[#1a1a1a]/80 border-[#ffd209]/30'
+                            : 'bg-white border-slate-200'
                             }`}
                     >
                         <div className="relative z-10">
@@ -164,8 +164,8 @@ export default function AboutPage() {
                                 viewport={{ once: true }}
                                 transition={{ delay: idx * 0.2 }}
                                 className={`border rounded-2xl p-8 transition-all group hover:scale-105 ${theme === 'dark'
-                                        ? 'bg-[#1a1a1a]/80 border-[#ffd209]/30 hover:border-[#ffd209]/50'
-                                        : 'bg-white border-slate-200 hover:border-[#ffd209]/50'
+                                    ? 'bg-[#1a1a1a]/80 border-[#ffd209]/30 hover:border-[#ffd209]/50'
+                                    : 'bg-white border-slate-200 hover:border-[#ffd209]/50'
                                     }`}
                             >
                                 <div className={`mb-6 text-[#ffd209] group-hover:scale-110 transition-transform`}>
@@ -211,8 +211,8 @@ export default function AboutPage() {
                     </div>
 
                     <div className={`max-w-4xl mx-auto p-8 rounded-3xl border-l-4 border-[#ffd209] ${theme === 'dark'
-                            ? 'bg-[#1a1a1a]/80 border border-[#ffd209]/30'
-                            : 'bg-white border border-slate-200'
+                        ? 'bg-[#1a1a1a]/80 border border-[#ffd209]/30'
+                        : 'bg-white border border-slate-200'
                         }`}>
                         <ul className="space-y-4">
                             {[

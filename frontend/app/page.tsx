@@ -206,7 +206,7 @@ export default function Home() {
         </div >
       </section >
 
-      {/* Info Section - ZAMACORPS Themed */}
+      {/* Info Section - ZACORPS Themed */}
       < motion.div
         initial={{ opacity: 0, y: 30 }
         }

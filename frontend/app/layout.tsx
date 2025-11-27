@@ -19,8 +19,11 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "ZAMACORPS | Private Payroll Streaming",
+  title: "ZACORPS | Private Payroll Streaming",
   description: "Encrypted payroll management powered by Fully Homomorphic Encryption. Secure, private, and transparent compensation streaming on blockchain.",
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
 export default function RootLayout({

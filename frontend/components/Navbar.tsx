@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 
 // Lazy load heavy components
 const ZamacorpsLogo = dynamic(() => import('./ZamacorpsLogo').then(mod => ({ default: mod.ZamacorpsLogo })), {
-    loading: () => <div className="bg-black rounded-lg px-4 py-2"><span className="font-black text-xl font-heading">ZAMACORPS</span></div>,
+    loading: () => <div className="bg-black rounded-lg px-4 py-2"><span className="font-black text-xl font-heading">ZACORPS</span></div>,
     ssr: false
 });
 

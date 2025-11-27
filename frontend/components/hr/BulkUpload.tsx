@@ -95,10 +95,10 @@ export function BulkUpload() {
             className="relative"
             {...animations.fadeInUp}
         >
-            {/* ZAMACORPS Container */}
+            {/* ZACORPS Container */}
             <div className={`relative overflow-hidden rounded-3xl border shadow-2xl transition-colors duration-300 ${theme === 'dark'
-                    ? 'bg-[#1a1a1a] border-[#ffd209]/20'
-                    : 'bg-white border-slate-200'
+                ? 'bg-[#1a1a1a] border-[#ffd209]/20'
+                : 'bg-white border-slate-200'
                 }`}>
                 {/* Tech Grid Background */}
                 <div className="absolute inset-0 opacity-5 pointer-events-none"
@@ -127,8 +127,8 @@ export function BulkUpload() {
                             whileTap={{ scale: 0.95 }}
                             onClick={handleDownloadSample}
                             className={`px-4 py-2 rounded-lg border font-mono text-sm transition-all flex items-center gap-2 ${theme === 'dark'
-                                    ? 'bg-[#1a1a1a] border-[#ffd209]/30 text-[#ffd209] hover:bg-[#ffd209]/10'
-                                    : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50 hover:border-[#ffd209] hover:text-[#ffd209]'
+                                ? 'bg-[#1a1a1a] border-[#ffd209]/30 text-[#ffd209] hover:bg-[#ffd209]/10'
+                                : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50 hover:border-[#ffd209] hover:text-[#ffd209]'
                                 }`}
                         >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -179,8 +179,8 @@ export function BulkUpload() {
                                                 ease: "easeInOut",
                                             }}
                                             className={`mb-6 p-4 rounded-full border ${theme === 'dark'
-                                                    ? 'bg-[#ffd209]/10 border-[#ffd209]/20'
-                                                    : 'bg-[#ffd209]/10 border-[#ffd209]/30'
+                                                ? 'bg-[#ffd209]/10 border-[#ffd209]/20'
+                                                : 'bg-[#ffd209]/10 border-[#ffd209]/30'
                                                 }`}
                                         >
                                             <svg className="w-12 h-12 text-[#ffd209]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -197,8 +197,8 @@ export function BulkUpload() {
                                             OR CLICK TO BROWSE LOCAL SYSTEM
                                         </p>
                                         <div className={`mt-6 px-3 py-1 rounded border text-xs font-mono ${theme === 'dark'
-                                                ? 'bg-slate-800/50 border-slate-700 text-slate-400'
-                                                : 'bg-slate-100 border-slate-200 text-slate-500'
+                                            ? 'bg-slate-800/50 border-slate-700 text-slate-400'
+                                            : 'bg-slate-100 border-slate-200 text-slate-500'
                                             }`}>
                                             ACCEPTED FORMAT: .CSV
                                         </div>
@@ -231,15 +231,15 @@ export function BulkUpload() {
 
                                 {/* Preview Table */}
                                 <div className={`overflow-hidden rounded-xl border ${theme === 'dark'
-                                        ? 'border-slate-800 bg-black/20'
-                                        : 'border-slate-200 bg-slate-50'
+                                    ? 'border-slate-800 bg-black/20'
+                                    : 'border-slate-200 bg-slate-50'
                                     }`}>
                                     <div className="overflow-x-auto">
                                         <table className="w-full text-left border-collapse">
                                             <thead>
                                                 <tr className={`border-b ${theme === 'dark'
-                                                        ? 'border-slate-800 bg-black/40'
-                                                        : 'border-slate-200 bg-slate-100'
+                                                    ? 'border-slate-800 bg-black/40'
+                                                    : 'border-slate-200 bg-slate-100'
                                                     }`}>
                                                     <th className="px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">ID</th>
                                                     <th className="px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">Target Address</th>
@@ -264,8 +264,8 @@ export function BulkUpload() {
                                                     >
                                                         <td className="px-4 py-3 text-slate-500 font-mono text-xs">{String(idx + 1).padStart(3, '0')}</td>
                                                         <td className={`px-4 py-3 font-mono text-sm transition-colors ${theme === 'dark'
-                                                                ? 'text-slate-300 group-hover:text-[#ffd209]'
-                                                                : 'text-slate-700 group-hover:text-black'
+                                                            ? 'text-slate-300 group-hover:text-[#ffd209]'
+                                                            : 'text-slate-700 group-hover:text-black'
                                                             }`}>
                                                             {emp.address}
                                                         </td>
@@ -304,8 +304,8 @@ export function BulkUpload() {
                                         whileTap={{ scale: 0.98 }}
                                         onClick={handleReset}
                                         className={`px-6 py-3 rounded-lg border font-bold transition-all uppercase tracking-wide text-sm ${theme === 'dark'
-                                                ? 'border-slate-700 text-slate-400 hover:bg-slate-800'
-                                                : 'border-slate-300 text-slate-600 hover:bg-slate-100'
+                                            ? 'border-slate-700 text-slate-400 hover:bg-slate-800'
+                                            : 'border-slate-300 text-slate-600 hover:bg-slate-100'
                                             }`}
                                     >
                                         Abort

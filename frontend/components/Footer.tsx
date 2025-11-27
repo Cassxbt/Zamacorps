@@ -149,7 +149,7 @@ export function Footer() {
                     <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                         <p className={`text-sm ${theme === 'dark' ? 'text-slate-500' : 'text-gray-500'
                             }`}>
-                            © 2024 ZAMACORPS. Powered by Zama FHE Technology.
+                            © 2024 ZACORPS. Powered by Zama FHE Technology.
                         </p>
                         <div className="flex gap-6">
                             <a href="https://www.zama.ai/privacy" target="_blank" rel="noopener noreferrer" className="text-sm transition-colors text-slate-500 hover:text-yellow-400 dark:text-slate-500 dark:hover:text-yellow-400">

@@ -22,7 +22,7 @@ export function ZamacorpsLogo({ size = 'md', className = '' }: ZamacorpsLogoProp
             <div className={`bg-black rounded-lg flex items-center shadow-lg border border-yellow-500/20 ${className}`}>
                 <span className={`font-black tracking-tighter font-heading ${size === 'sm' ? 'text-xl px-3 py-1' : size === 'lg' ? 'text-5xl px-6 py-3' : 'text-3xl px-4 py-2'}`}>
                     {/* Placeholder with same dimensions */}
-                    <span className="opacity-0">ZAMACORPS</span>
+                    <span className="opacity-0">ZACORPS</span>
                 </span>
             </div>
         );
@@ -52,7 +52,7 @@ export function ZamacorpsLogo({ size = 'md', className = '' }: ZamacorpsLogoProp
                     filter: 'drop-shadow(0 2px 0px rgba(255, 210, 9, 0.3))'
                 }}
             >
-                ZAMACORPS
+                ZACORPS
             </span>
         </div>
     );

@@ -20,8 +20,8 @@ export default function EmployeeLoginPage() {
 
     return (
         <div className={`min-h-[calc(100vh-6rem)] flex items-center justify-center p-4 transition-colors duration-300 ${theme === 'dark'
-                ? 'bg-gradient-to-br from-[#0a0a0a] via-[#1a1a1a] to-[#0f0f0f]'
-                : 'bg-gradient-to-br from-slate-50 via-white to-slate-100'
+            ? 'bg-gradient-to-br from-[#0a0a0a] via-[#1a1a1a] to-[#0f0f0f]'
+            : 'bg-gradient-to-br from-slate-50 via-white to-slate-100'
             }`}>
             <div className="max-w-5xl w-full grid md:grid-cols-2 gap-12 items-center">
 
@@ -52,7 +52,7 @@ export default function EmployeeLoginPage() {
                     </h1>
                     <p className={`text-sm max-w-md leading-relaxed font-medium ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
                         }`}>
-                        View your real-time earnings, withdraw funds instantly, and manage your financial privacy with ZAMACORPS' encrypted payroll system.
+                        View your real-time earnings, withdraw funds instantly, and manage your financial privacy with ZACORPS' encrypted payroll system.
                     </p>
 
                     <div className="flex gap-6 text-sm">
@@ -73,8 +73,8 @@ export default function EmployeeLoginPage() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 }}
                     className={`border rounded-3xl p-8 shadow-2xl transition-colors duration-300 ${theme === 'dark'
-                            ? 'bg-[#1a1a1a]/80 border-[#ffd209]/30 backdrop-blur-xl'
-                            : 'bg-white border-slate-200'
+                        ? 'bg-[#1a1a1a]/80 border-[#ffd209]/30 backdrop-blur-xl'
+                        : 'bg-white border-slate-200'
                         }`}
                 >
                     <h2 className={`text-2xl font-black mb-8 text-center font-heading ${theme === 'dark' ? 'text-slate-100' : 'text-slate-900'
@@ -98,8 +98,8 @@ export default function EmployeeLoginPage() {
                         <button
                             disabled
                             className={`w-full border rounded-xl p-4 flex items-center justify-center gap-3 cursor-not-allowed transition-colors ${theme === 'dark'
-                                    ? 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'
-                                    : 'bg-slate-50 border-slate-200 text-slate-400 hover:bg-slate-100'
+                                ? 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'
+                                : 'bg-slate-50 border-slate-200 text-slate-400 hover:bg-slate-100'
                                 }`}
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
