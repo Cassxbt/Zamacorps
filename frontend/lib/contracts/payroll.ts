@@ -34,7 +34,8 @@ export async function createPayrollStream(
     // 1. Encrypt the salary using FHE Relayer SDK
     const encrypted = await encryptSalary(
         params.salaryPerBlock,
-        walletClient.account.address // User address for encryption
+        walletClient.account.address, // User address for encryption
+        PAYROLL_ADDRESS // Contract address
     );
 
     // Convert handles and proof to proper hex format

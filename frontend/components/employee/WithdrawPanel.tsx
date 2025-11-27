@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useWalletClient, usePublicClient, useAccount } from 'wagmi';
 import { requestWithdrawal, submitWithdrawal, getEmployeeStream } from '@/lib/contracts/payroll';
-import { decryptClaimable } from '@/lib/fhe/decrypt';
+import { decryptValue } from '@/lib/fhe/decrypt';
 import { PAYROLL_ADDRESS } from '@/lib/wagmi/config';
 import { formatEther } from 'viem';
 import { motion } from 'framer-motion';
@@ -81,7 +81,7 @@ export function WithdrawPanel() {
             console.log('[Withdraw] Step 2: Decrypting with Relayer...');
             setStatus('decrypting');
 
-            const amount = await decryptClaimable(encryptedHandle, address);
+            const amount = await decryptValue(encryptedHandle, PAYROLL_ADDRESS, address);
             console.log('[Withdraw] Decrypted amount:', amount);
             setDecryptedAmount(amount);
 

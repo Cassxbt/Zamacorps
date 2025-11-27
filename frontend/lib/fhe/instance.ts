@@ -1,51 +1,58 @@
 import type { FhevmInstance } from '@zama-fhe/relayer-sdk/web';
-import { FHE_RELAYER } from '../wagmi/config';
 
 let fhevmInstance: FhevmInstance | null = null;
 let initPromise: Promise<FhevmInstance> | null = null;
 
 /**
- * Get or create the FHEVM instance using Zama Relayer SDK
- * Uses explicit configuration for Sepolia testnet
- * CLIENT-SIDE ONLY - Dynamic import prevents SSR issues
+ * FHEVM Instance Manager
+ * Follows official Zama pattern: https://docs.zama.org/protocol/relayer-sdk-guides/fhevm-relayer/initialization
  * 
- * @see https://docs.zama.org/protocol/relayer-sdk-guides/fhevm-relayer/initialization
+ * CRITICAL: This must be initialized before any encryption/decryption
  */
 export async function getFhevmInstance(): Promise<FhevmInstance> {
-    // Must run in browser only
+    console.log('[FHE-INIT] 🔄 getFhevmInstance called');
+
+    // SSR Check
     if (typeof window === 'undefined') {
-        throw new Error('FHEVM instance can only be created in browser environment');
+        const error = new Error('[FHE-INIT] ❌ Cannot create FHEVM instance in server environment');
+        console.error(error);
+        throw error;
     }
 
-    // Return existing instance
+    // Return cached instance
     if (fhevmInstance) {
+        console.log('[FHE-INIT] ✅ Returning cached instance');
         return fhevmInstance;
     }
 
-    // Return in-progress initialization (prevents double-init in React strict mode)
+    // Return in-progress initialization
     if (initPromise) {
+        console.log('[FHE-INIT] ⏳ Initialization in progress, returning existing promise');
         return initPromise;
     }
 
-    console.log('[FHE] Initializing FHEVM instance for Sepolia...');
+    console.log('[FHE-INIT] 🚀 Starting new initialization...');
 
-    // Start new initialization
     initPromise = (async () => {
         try {
-            // Dynamic import for client-side only
+            // Step 1: Import SDK
+            console.log('[FHE-INIT] Step 1/3: Importing Zama SDK...');
             const { createInstance, initSDK } = await import('@zama-fhe/relayer-sdk/web');
+            console.log('[FHE-INIT] ✅ SDK imported successfully');
 
-            console.log('[FHE] Initializing SDK WASM...');
+            // Step 2: Initialize WASM
+            console.log('[FHE-INIT] Step 2/3: Initializing WASM...');
             await initSDK();
-            console.log('[FHE] SDK WASM initialized');
+            console.log('[FHE-INIT] ✅ WASM initialized successfully');
 
-            // Official Zama pattern: network MUST be RPC URL string, NOT ethereum object
+            // Step 3: Create instance with config
+            console.log('[FHE-INIT] Step 3/3: Creating FHEVM instance...');
+
             const config = {
-                chainId: 11155111,  // Sepolia
-                gatewayChainId: 11155111,  // Sepolia (must match for EIP-712 signatures)
-                network: 'https://eth-sepolia.g.alchemy.com/v2/sTZ5ecoblEhM7IGB9bc_z_izbUph1Chn',  // ✅ URL string only
-                relayerUrl: FHE_RELAYER,
-                // Contract addresses for Sepolia (verified from Zama docs)
+                chainId: 11155111,
+                gatewayChainId: 11155111,
+                network: 'https://eth-sepolia.g.alchemy.com/v2/sTZ5ecoblEhM7IGB9bc_z_izbUph1Chn',
+                relayerUrl: 'https://relayer.testnet.zama.org/',
                 aclContractAddress: '0xf0Ffdc93b7E186bC2f8CB3dAA75D86d1930A433D',
                 kmsContractAddress: '0x1364cBBf2cDF5032C47d8226a6f6FBD2AFCDacAC',
                 inputVerifierContractAddress: '0xBBC1fFCdc7C316aAAd72E807D9b0272BE8F84DA0',
@@ -53,27 +60,32 @@ export async function getFhevmInstance(): Promise<FhevmInstance> {
                 verifyingContractAddressInputVerification: '0x483b9dE06E4E4C7D35CCf5837A1668487406D955',
             };
 
-            console.log('[FHE] Creating instance with config:', config);
+            console.log('[FHE-INIT] Config:', JSON.stringify(config, null, 2));
+
             const instance = await createInstance(config);
+            console.log('[FHE-INIT] ✅ Instance created successfully');
 
             fhevmInstance = instance;
             initPromise = null;
 
-            console.log('[FHE] ✅ FHEVM instance initialized successfully!');
+            console.log('[FHE-INIT] 🎉 FHEVM initialization complete');
             return instance;
-        } catch (error: any) {
-            console.error('[FHE] ❌ Failed to initialize FHEVM instance');
-            console.error('[FHE] Error details:', {
-                message: error.message,
-                stack: error.stack,
-                name: error.name
-            });
 
-            // Reset state on error
+        } catch (error: unknown) {
+            console.error('[FHE-INIT] ❌ FATAL: Initialization failed');
+            console.error('[FHE-INIT] Error type:', typeof error);
+            console.error('[FHE-INIT] Error:', error);
+
+            if (error instanceof Error) {
+                console.error('[FHE-INIT] Error message:', error.message);
+                console.error('[FHE-INIT] Error stack:', error.stack);
+            }
+
+            // Reset state
             initPromise = null;
             fhevmInstance = null;
 
-            throw error;
+            throw new Error(`FHEVM initialization failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
         }
     })();
 
@@ -81,8 +93,10 @@ export async function getFhevmInstance(): Promise<FhevmInstance> {
 }
 
 /**
- * Reset the FHEVM instance (useful for testing)
+ * Reset instance (for testing/debugging)
  */
 export function resetFhevmInstance() {
+    console.log('[FHE-INIT] 🔄 Resetting FHEVM instance');
     fhevmInstance = null;
+    initPromise = null;
 }
