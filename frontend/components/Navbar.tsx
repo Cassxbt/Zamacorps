@@ -187,7 +187,7 @@ export function Navbar() {
 
                 {/* Mobile Menu Panel */}
                 {isMobileMenuOpen && (
-                    <div className={`md:hidden absolute top-full left-0 right-0 mt-4 mx-6 rounded-2xl shadow-2xl overflow-hidden ${theme === 'dark' ? 'bg-[#ffd209] border border-black/20' : 'bg-black border border-yellow-500/30'
+                    <div className={`md:hidden absolute top-full left-0 right-0 mt-2 mx-4 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-xl z-50 ${theme === 'dark' ? 'bg-[#ffd209]/95 border border-black/20' : 'bg-black/90 border border-yellow-500/30'
                         }`}>
                         <div className="p-4 space-y-2">
                             {navLinks.map((link) => (
