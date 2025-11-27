@@ -22,7 +22,10 @@ export const metadata: Metadata = {
   title: "ZACORPS | Private Payroll Streaming",
   description: "Encrypted payroll management powered by Fully Homomorphic Encryption. Secure, private, and transparent compensation streaming on blockchain.",
   icons: {
-    icon: '/favicon.png',
+    icon: [
+      { url: '/favicon.png', type: 'image/png', sizes: '512x512' },
+    ],
+    apple: '/favicon.png',
   },
 };
 
