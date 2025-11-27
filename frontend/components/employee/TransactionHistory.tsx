@@ -57,7 +57,7 @@ export function TransactionHistory() {
                             <div className="text-right">
                                 <p className="text-sm text-gray-400">Total Withdrawn</p>
                                 <p className="text-2xl font-bold text-white">
-                                    {weiToEth(totalWithdrawn)} ETH
+                                    {formatEther(totalWithdrawn)} ETH
                                 </p>
                             </div>
                         )}
@@ -129,7 +129,7 @@ export function TransactionHistory() {
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <span className="text-green-400 font-bold text-lg">
-                                                        {weiToEth(event.amount)} ETH
+                                                        {formatEther(event.amount)} ETH
                                                     </span>
                                                 </td>
                                                 <td className="px-6 py-4">
