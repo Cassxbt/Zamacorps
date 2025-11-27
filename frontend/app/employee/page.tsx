@@ -12,7 +12,7 @@ import { ABIs } from '@/lib/contracts/abi';
 import { calculateBlockCountdown, formatCountdown, getEstimatedCliffTime } from '@/lib/utils/countdown';
 import { IncomeAttestation } from '@/components/employee/IncomeAttestation';
 import { requestWithdrawal, submitWithdrawal } from '@/lib/contracts/payroll';
-import { decryptClaimable } from '@/lib/fhe/decrypt';
+import { decryptValue } from '@/lib/fhe/decrypt';
 const EncryptedPayrollABI = ABIs.payroll;
 
 const ConnectButton = dynamic(() => import('@/components/ConnectButton').then(mod => ({ default: mod.ConnectButton })), {
@@ -113,7 +113,7 @@ export default function EmployeePage() {
                 txHash
             });
 
-            const decryptedAmount = await decryptClaimable(handle, address);
+            const decryptedAmount = await decryptValue(handle, PAYROLL_ADDRESS, address);
 
             // Step 3: Submit the decrypted amount
             setStatus({
@@ -469,8 +469,8 @@ export default function EmployeePage() {
                                         </div>
                                         <div className="flex-1">
                                             <p className={`text-sm font-medium ${status.type === 'success'
-                                                    ? theme === 'dark' ? 'text-green-200' : 'text-green-700'
-                                                    : theme === 'dark' ? 'text-red-200' : 'text-red-700'
+                                                ? theme === 'dark' ? 'text-green-200' : 'text-green-700'
+                                                : theme === 'dark' ? 'text-red-200' : 'text-red-700'
                                                 }`}>
                                                 {status.message}
                                             </p>
@@ -480,8 +480,8 @@ export default function EmployeePage() {
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className={`text-xs underline mt-1 inline-flex items-center gap-1 ${theme === 'dark'
-                                                            ? 'text-green-400 hover:text-green-300'
-                                                            : 'text-green-600 hover:text-green-700'
+                                                        ? 'text-green-400 hover:text-green-300'
+                                                        : 'text-green-600 hover:text-green-700'
                                                         }`}
                                                 >
                                                     View on Etherscan
