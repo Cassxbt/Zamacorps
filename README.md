@@ -178,6 +178,45 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ---
 
+## 🧪 Testing
+
+### Smart Contract Tests
+```bash
+# Navigate to blockchain directory
+cd blockchain
+
+# Run comprehensive test suite
+npx hardhat test
+
+# Expected output: 11 passing tests covering:
+# - Deployment & Access Control
+# - HR Role Management
+# - Stream Lifecycle (Create/Pause/Cancel)
+# - Hook System Integration
+```
+
+**Test Coverage:**
+- ✅ Role-based access control (RBAC)
+- ✅ Stream management logic
+- ✅ Hook approval and registration
+- ✅ Error handling and edge cases
+
+### Frontend Component Validation
+```bash
+# Navigate to frontend directory
+cd frontend
+
+# Run component integrity tests
+npm test
+
+# Validates:
+# - FHE module exports (encrypt/decrypt/instance)
+# - Contract interaction layer
+# - Wagmi configuration
+```
+
+---
+
 ## 🧪 Testing the FHE Implementation
 
 ### 1. Create Encrypted Stream (HR)
