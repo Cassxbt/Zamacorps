@@ -43,9 +43,16 @@ export function TypingText() {
     }, [textIndex, count]);
 
 
-    // Light mode: yellow + black stripes, Dark mode: solid yellow
+    // Light mode: yellow + black stripes, Dark mode: yellow + white stripes
     const textStyle = mounted && theme === 'dark'
-        ? { color: '#ffd209' } // Solid yellow for dark mode
+        ? {
+            backgroundImage: 'repeating-linear-gradient(45deg, #ffd209, #ffd209 10px, #fff 10px, #fff 20px)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            color: 'transparent',
+            filter: 'drop-shadow(0 2px 0px rgba(255, 210, 9, 0.3))'
+        }
         : {
             backgroundImage: 'repeating-linear-gradient(45deg, #ffd209, #ffd209 10px, #000 10px, #000 20px)',
             WebkitBackgroundClip: 'text',
