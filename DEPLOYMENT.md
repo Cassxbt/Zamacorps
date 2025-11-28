@@ -39,7 +39,7 @@ Click "Deploy" and wait ~2 minutes
 
 ## After Deployment
 
-- **URL:** `https://zamacorps.vercel.app` (or similar)
+- **URL:** `https://zacorps.vercel.app`
 - **Auto-deploys:** Every push to `main` triggers a new deployment
 - **Update env vars:** Vercel Dashboard → Settings → Environment Variables
 
