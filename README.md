@@ -1,4 +1,4 @@
-# ZAMACORPS - Privacy-Preserving Payroll System
+# ZACORPS - Privacy-Preserving Payroll System
 
 > **Solving Blockchain's Privacy Problem**: Private salary streaming using Zama's Fully Homomorphic Encryption (FHE)
 
@@ -21,7 +21,7 @@
 - 🔐 Sensitive business logic
 
 **Traditional "solutions" fail:**
-- ❌ **Off-chain storage**: Defeats the purpose of blockchain
+- ❌ **Off-chain storage**: Trashes the purpose of blockchain
 - ❌ **Zero-knowledge proofs**: Can't compute on encrypted data
 - ❌ **Mixing/privacy coins**: Limited use cases, regulatory issues
 
@@ -40,13 +40,13 @@ FHE:        FHE.add(encSalary, encBonus) → still encrypted!
 
 ---
 
-## 🎯 ZAMACORPS: FHE-Powered Payroll
+## 🎯 ZACORPS: FHE-Powered Payroll
 
 **What we built:** A fully functional payroll streaming platform where **salaries remain encrypted throughout the entire lifecycle** - from creation to withdrawal.
 
-### How ZAMACORPS Demonstrates Zama's Power
+### How ZACORPS Demonstrates Zama's Power
 
-| Traditional Blockchain Payroll | ZAMACORPS with Zama FHE |
+| Traditional Blockchain Payroll | ZACORPS with Zama FHE |
 |--------------------------------|-------------------------|
 | 👀 Salaries visible on-chain | 🔐 Salaries encrypted with `euint128` |
 | 🚫 No privacy guarantees | ✅ Mathematically proven privacy (FHE) |
@@ -57,7 +57,7 @@ FHE:        FHE.add(encSalary, encBonus) → still encrypted!
 
 **Sector:** Web3 Companies, DAOs, Remote Teams, Creator Economy  
 **Pain Point:** Transparent blockchain exposes sensitive financial data  
-**Solution:** ZAMACORPS provides mathematically guaranteed privacy
+**Solution:** ZACORPS provides mathematically guaranteed privacy
 
 ```solidity
 // Encrypted salary creation (HR perspective)
@@ -80,7 +80,7 @@ euint128 claimable = FHE.sub(accrued, claimed);            // Still encrypted
 - 📊 **Verifiable Privacy**: Block explorers show encrypted handles, not salaries
 
 ### User Experience
-- 🎨 **Professional UI**: ZAMACORPS dark/light theme
+- 🎨 **Professional UI**: ZACORPS dark/light theme
 - 📈 **Real-time Streaming**: Salaries accrue every block (Sepolia testnet)
 - 👥 **Role-Based Access**: Admin, HR, Employee dashboards
 - 📤 **Bulk Upload**: CSV import for mass stream creation
@@ -90,7 +90,7 @@ euint128 claimable = FHE.sub(accrued, claimed);            // Still encrypted
 
 ## 🧪 Test Coverage
 
-ZAMACORPS demonstrates **production-ready quality** with comprehensive testing across all layers:
+ZACORPS demonstrates **production-ready quality** with comprehensive testing across all layers:
 
 ### Test Suite Summary
 
@@ -225,8 +225,8 @@ sequenceDiagram
 ### Installation
 ```bash
 # Clone repository
-git clone https://github.com/Cassxbt/Zamacorps.git
-cd Zamacorps
+git clone https://github.com/Cassxbt/Zacorps.git
+cd Zacorps
 
 # Install dependencies
 cd frontend
@@ -327,7 +327,7 @@ See [Test Coverage](#-test-coverage) section for detailed breakdown and why it m
 ## 📂 Project Structure
 
 ```
-Zamacorps/
+Zacorps/
 ├── blockchain/
 │   ├── contracts/
 │   │   └── EncryptedPayrollV2.sol   # FHE payroll contract
@@ -352,7 +352,7 @@ Zamacorps/
 
 ## � Why This Matters for Zama
 
-ZAMACORPS demonstrates **real-world FHE adoption** in a critical vertical:
+ZACORPS demonstrates **real-world FHE adoption** in a critical vertical:
 
 1. **Payroll is a $1T+ market** with strict privacy requirements
 2. **Proves FHE is production-ready** for confidential business logic
