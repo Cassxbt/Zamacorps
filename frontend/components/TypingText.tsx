@@ -43,23 +43,23 @@ export function TypingText() {
     }, [textIndex, count]);
 
 
-    // Light mode: yellow + black, Dark mode: yellow + white
-    const zebraGradient = mounted && theme === 'dark'
-        ? 'repeating-linear-gradient(45deg, #ffd209, #ffd209 10px, #fff 10px, #fff 20px)'
-        : 'repeating-linear-gradient(45deg, #ffd209, #ffd209 10px, #000 10px, #000 20px)';
+    // Light mode: yellow + black stripes, Dark mode: solid yellow
+    const textStyle = mounted && theme === 'dark'
+        ? { color: '#ffd209' } // Solid yellow for dark mode
+        : {
+            backgroundImage: 'repeating-linear-gradient(45deg, #ffd209, #ffd209 10px, #000 10px, #000 20px)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            color: 'transparent',
+            filter: 'drop-shadow(0 2px 0px rgba(255, 210, 9, 0.3))'
+        };
 
     return (
         <span className="inline-flex">
             <motion.span
                 className="font-black tracking-tighter font-heading"
-                style={{
-                    backgroundImage: zebraGradient,
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    color: 'transparent',
-                    filter: 'drop-shadow(0 2px 0px rgba(255, 210, 9, 0.3))'
-                }}
+                style={textStyle}
             >
                 {displayText}
             </motion.span>

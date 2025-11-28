@@ -22,7 +22,7 @@ export function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
     const pathname = usePathname();
-    const { theme } = useTheme();
+    const { resolvedTheme } = useTheme();
 
     // Prevent hydration mismatch
     useState(() => {
@@ -33,19 +33,22 @@ export function Navbar() {
         return (
             <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4">
                 <div className="max-w-7xl mx-auto">
-                    <div className="bg-black/50 border border-white/10 rounded-2xl px-6 py-3 flex items-center justify-between shadow-2xl backdrop-blur-md h-[72px]">
-                        <div className="w-32 h-8 bg-white/10 rounded-lg animate-pulse" />
+                    {/* Default to Dark Mode (Yellow) skeleton to match server render */}
+                    <div className="bg-[#ffd209] border border-black/20 rounded-2xl px-6 py-3 flex items-center justify-between shadow-2xl backdrop-blur-md h-[72px]">
+                        <div className="w-32 h-8 bg-black/10 rounded-lg animate-pulse" />
                         <div className="hidden md:flex gap-8">
-                            <div className="w-16 h-4 bg-white/10 rounded animate-pulse" />
-                            <div className="w-16 h-4 bg-white/10 rounded animate-pulse" />
-                            <div className="w-20 h-4 bg-white/10 rounded animate-pulse" />
+                            <div className="w-16 h-4 bg-black/10 rounded animate-pulse" />
+                            <div className="w-16 h-4 bg-black/10 rounded animate-pulse" />
+                            <div className="w-20 h-4 bg-black/10 rounded animate-pulse" />
                         </div>
-                        <div className="w-10 h-10 bg-white/10 rounded-lg animate-pulse" />
+                        <div className="w-10 h-10 bg-black/10 rounded-lg animate-pulse" />
                     </div>
                 </div>
             </nav>
         );
     }
+
+    const isDark = resolvedTheme === 'dark';
 
     const navLinks = [
         { name: 'HOME', href: '/' },
@@ -86,9 +89,9 @@ export function Navbar() {
         <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4">
             <div className="max-w-7xl mx-auto">
                 <div className={`
-                    ${theme === 'dark' ? 'bg-[#ffd209]' : 'bg-black'}
+                    ${isDark ? 'bg-[#ffd209]' : 'bg-black'}
                     border
-                    ${theme === 'dark' ? 'border-black/20' : 'border-yellow-500/30'}
+                    ${isDark ? 'border-black/20' : 'border-yellow-500/30'}
                     rounded-2xl px-6 py-3 flex items-center justify-between shadow-2xl transition-colors duration-300
                 `}>
                     {/* Logo */}
@@ -103,7 +106,7 @@ export function Navbar() {
                                 key={link.name}
                                 href={link.href}
                                 className={`text-sm font-bold tracking-wider transition-colors
-                                    ${theme === 'dark'
+                                    ${isDark
                                         ? pathname === link.href
                                             ? 'text-black'
                                             : 'text-black/70 hover:text-white'
@@ -124,7 +127,7 @@ export function Navbar() {
                             onMouseLeave={() => setIsAboutOpen(false)}
                         >
                             <button className={`text-sm font-bold tracking-wider transition-colors flex items-center gap-1
-                                ${theme === 'dark'
+                                ${isDark
                                     ? pathname.startsWith('/about')
                                         ? 'text-black'
                                         : 'text-black/70 hover:text-white'
@@ -140,7 +143,7 @@ export function Navbar() {
                             </button>
 
                             {/* CSS-only dropdown - instant, no JS animation library */}
-                            <div className={`absolute top-full right-0 mt-2 w-64 border rounded-xl shadow-2xl overflow-hidden p-2 transition-all duration-200 ${theme === 'dark'
+                            <div className={`absolute top-full right-0 mt-2 w-64 border rounded-xl shadow-2xl overflow-hidden p-2 transition-all duration-200 ${isDark
                                 ? 'bg-[#ffd209] border-black/20'
                                 : 'bg-black border-slate-700'
                                 } ${isAboutOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2 pointer-events-none'}`}>
@@ -148,7 +151,7 @@ export function Navbar() {
                                     <Link
                                         key={item.name}
                                         href={item.href}
-                                        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all group ${theme === 'dark'
+                                        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all group ${isDark
                                             ? 'text-black hover:text-white'
                                             : 'text-white hover:text-yellow-400'
                                             }`}
@@ -169,7 +172,7 @@ export function Navbar() {
                         <ThemeToggle />
                         <button
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            className={`p-2 ${theme === 'dark' ? 'text-black' : 'text-white'}`}
+                            className={`p-2 ${isDark ? 'text-black' : 'text-white'}`}
                             aria-label="Toggle mobile menu"
                         >
                             {isMobileMenuOpen ? (
@@ -187,7 +190,7 @@ export function Navbar() {
 
                 {/* Mobile Menu Panel */}
                 {isMobileMenuOpen && (
-                    <div className={`md:hidden absolute top-full left-0 right-0 mt-2 mx-4 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-xl z-50 ${theme === 'dark' ? 'bg-[#ffd209]/95 border border-black/20' : 'bg-black/90 border border-yellow-500/30'
+                    <div className={`md:hidden absolute top-full left-0 right-0 mt-2 mx-4 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-xl z-50 ${isDark ? 'bg-[#ffd209]/95 border border-black/20' : 'bg-black/90 border border-yellow-500/30'
                         }`}>
                         <div className="p-4 space-y-2">
                             {navLinks.map((link) => (
@@ -195,7 +198,7 @@ export function Navbar() {
                                     key={link.name}
                                     href={link.href}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className={`block px-4 py-3 rounded-lg font-bold text-sm transition-all ${theme === 'dark'
+                                    className={`block px-4 py-3 rounded-lg font-bold text-sm transition-all ${isDark
                                         ? pathname === link.href
                                             ? 'bg-black text-white'
                                             : 'text-black hover:bg-black/10'
@@ -210,7 +213,7 @@ export function Navbar() {
 
                             {/* About links in mobile */}
                             <div className="pt-2 border-t border-black/10">
-                                <div className={`text-xs font-bold px-4 py-2 ${theme === 'dark' ? 'text-black/60' : 'text-white/60'}`}>
+                                <div className={`text-xs font-bold px-4 py-2 ${isDark ? 'text-black/60' : 'text-white/60'}`}>
                                     ABOUT US
                                 </div>
                                 {aboutLinks.map((item) => (
@@ -218,7 +221,7 @@ export function Navbar() {
                                         key={item.name}
                                         href={item.href}
                                         onClick={() => setIsMobileMenuOpen(false)}
-                                        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${theme === 'dark'
+                                        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${isDark
                                             ? 'text-black hover:bg-black/10'
                                             : 'text-white hover:bg-white/10'
                                             }`}

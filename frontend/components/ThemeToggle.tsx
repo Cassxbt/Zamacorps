@@ -24,8 +24,8 @@ export function ThemeToggle() {
         <button
             onClick={() => setTheme(isDark ? 'light' : 'dark')}
             className={`p-2 rounded-lg transition-all border-2 ${isDark
-                ? 'bg-yellow-500/20 hover:bg-yellow-500/30 border-yellow-500/50 hover:border-yellow-500/70'
-                : 'bg-gray-800 hover:bg-gray-900 border-gray-700 hover:border-gray-600'
+                ? 'bg-black/80 hover:bg-black border-black/20 hover:border-black/40' // Dark Mode (Yellow Header) -> Black Button
+                : 'bg-yellow-500/20 hover:bg-yellow-500/30 border-yellow-500/50 hover:border-yellow-500/70' // Light Mode (Black Header) -> Yellow Button
                 }`}
             aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
         >
